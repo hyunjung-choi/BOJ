@@ -33,7 +33,7 @@ public class Q2635 {
                 if (num >= 0) {
                     result.add(num);
                 } else {
-                    System.out.println(result);
+//                    System.out.println(result);
                     if (longest < result.size()) {
                         answer = List.copyOf(result);
                         longest = Math.max(longest, result.size());
