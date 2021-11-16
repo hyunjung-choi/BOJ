@@ -16,14 +16,13 @@ public class Q15651 {
 
     private static void rec(int k) {
         if (k == M + 1) {
-            for (int i = 1; i <= M; i++) {
-                answer.append(selected[i]).append(" ");
-            }
+            for (int i = 1; i <= M; i++) answer.append(selected[i]).append(" ");
             answer.append("\n");
         } else {
             for (int i = 1; i <= N; i++) {
                 selected[k] = i;
                 rec(k + 1);
+                selected[k] = 0;
             }
         }
     }
