@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
@@ -9,54 +8,61 @@ import java.util.StringTokenizer;
  */
 
 public class Q14888 {
-
     private static int N;
-    private static int[] arr;
-    private static int[] operator;
+    private static int[] nums, operators;
     private static int min = Integer.MAX_VALUE;
     private static int max = Integer.MIN_VALUE;
+    private static final StringBuilder sb = new StringBuilder();
 
-    private static void dfs(int num, int index) {
-        if (index == N) {
-            max = Math.max(max, num);
-            min = Math.min(min, num);
-            return;
-        }
+    // 완성된 식에 맞게 계산해서 정답 갱신하는 함수
+    private static int calculator(int operand1, int operator, int operand2) {
+        if (operator == 1)
+            return operand1 + operand2;
+        else if (operator == 2)
+            return operand1 - operand2;
+        else if (operator == 3)
+            return operand1 * operand2;
+        else
+            return operand1 / operand2;
+    }
 
-        for (int i = 0; i < 4; i++) {
-            if (operator[i] > 0) {
-                operator[i]--;
-                if (i == 0) dfs(num + arr[index], index + 1);
-                else if (i == 1) dfs(num - arr[index], index + 1);
-                else if (i == 2) dfs(num * arr[index], index + 1);
-                else if (i == 3) dfs(num / arr[index], index + 1);
-                operator[i]++;
+    private static void rec_func(int k, int value) {
+        if (k == N) {
+            min = Math.min(min, value);
+            max = Math.max(max, value);
+        } else {
+            for (int i = 1; i <= 4; i++) {
+                if (operators[i] >= 1) {
+                    operators[i]--;
+                    rec_func(k + 1, calculator(value, i, nums[k + 1]));
+                    operators[i]++;
+                }
             }
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    private static void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
-        arr = new int[N];
-        operator = new int[4];
 
-        // 피연산자 배열
+        nums = new int[N + 1];
         StringTokenizer st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < N; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
-        }
+        for (int i = 1; i <= N; i++)
+            nums[i] = Integer.parseInt(st.nextToken());
 
-        // 연산자 배열
+        operators = new int[5];
         st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < 4; i++) {
-            operator[i] = Integer.parseInt(st.nextToken());
-        }
-
-        dfs(arr[0], 1);
-        System.out.println(max);
-        System.out.println(min);
+        for (int i = 1; i <= 4; i++)
+            operators[i] = Integer.parseInt(st.nextToken());
 
         br.close();
     }
+
+    public static void main(String[] args) throws Exception {
+        input();
+        rec_func(1, nums[1]);
+        sb.append(max).append("\n").append(min);
+        System.out.println(sb);
+    }
+
 }
