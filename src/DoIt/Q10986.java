@@ -12,7 +12,8 @@ import java.util.StringTokenizer;
 
 public class Q10986 {
 
-    private static int N, M, answer;
+    private static int N, M;
+    private static long answer;
     private static long[] sum, count;
 
     private static void solution() {
@@ -23,7 +24,7 @@ public class Q10986 {
 
     private static void dividedByM() {
         for (int i = 1; i <= N ; i++) {
-            int remainder = Long.valueOf(sum[i]).intValue() % M;
+            int remainder = (int) (sum[i] % M);
             if (remainder == 0) answer++;
             count[remainder]++;
         }
@@ -36,7 +37,7 @@ public class Q10986 {
         M = Integer.parseInt(st.nextToken());
 
         sum = new long[N + 1];
-        count = new long[M];
+        count = new long[1001];
         st = new StringTokenizer(br.readLine());
 
         for (int i = 1; i <= N; i++) {
