@@ -13,10 +13,8 @@ import java.util.StringTokenizer;
  */
 
 public class Q12891 {
-    private static int S, P, checkSecretNumber, left, right, answer;
+    private static int S, P, checkSecretNumber, left, answer;
     private static char[] dna;
-    private static int[] checkArr;
-    private static int[] myCheckArr;
     private static Map<Character, Integer> dnaMap = new HashMap<>();
 
     private static void solution() {
@@ -24,10 +22,9 @@ public class Q12891 {
         for (int i = 0; i <= S - P; i++) {
             Map<Character, Integer> myMap = new HashMap<>();
             left = i;
+            checkSecretNumber = 0;
             for (int j = 0; j < P; j++) {
-
                 char ch = dna[left];
-                System.out.print(ch);
 
                 if (ch == 'A' || ch == 'C' || ch == 'G' || ch == 'T') {
                     myMap.put(ch, myMap.getOrDefault(ch, 0) + 1);
@@ -35,15 +32,20 @@ public class Q12891 {
                 left++;
 
             }
-            right++;
-            System.out.println(myMap);
+            // System.out.println(myMap);
+
+            for (char key : dnaMap.keySet()) {
+                if (dnaMap.get(key) > 0) {
+                    if (myMap.containsKey(key)) checkSecretNumber++;
+                }
+            }
+
+            if (checkSecretNumber == P) answer++;
         }
 
-        System.out.println(dnaMap);
-
+        // System.out.println(dnaMap);
         System.out.println(answer);
     }
-
 
     private static void input() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -52,8 +54,6 @@ public class Q12891 {
         P = Integer.parseInt(st.nextToken());
 
         dna = new char[S];
-        checkArr = new int[4]; // {A, C, G, T}
-        myCheckArr = new int[4];
         dna = br.readLine().toCharArray();
 
         st = new StringTokenizer(br.readLine());
