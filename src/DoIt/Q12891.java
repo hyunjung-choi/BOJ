@@ -3,8 +3,6 @@ package DoIt;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.StringTokenizer;
 
 /**
@@ -13,38 +11,71 @@ import java.util.StringTokenizer;
  */
 
 public class Q12891 {
-    private static int S, P, checkSecretNumber, left, answer;
+    private static int S, P, checkSecret, answer;
     private static char[] dna;
-    private static Map<Character, Integer> dnaMap = new HashMap<>();
+    private static final int[] checkArr = new int[4]; // 비밀번호 체크 배열 (A, C, G, T)
+    private static final int[] myArr = new int[4]; // 현재 상태 배열
 
     private static void solution() {
+        for (int i = 0; i < P; i++) {
+            add(dna[i]);
+        }
+        if (checkSecret == 4) answer++;
 
-        for (int i = 0; i <= S - P; i++) {
-            Map<Character, Integer> myMap = new HashMap<>();
-            left = i;
-            checkSecretNumber = 0;
-            for (int j = 0; j < P; j++) {
-                char ch = dna[left];
-
-                if (ch == 'A' || ch == 'C' || ch == 'G' || ch == 'T') {
-                    myMap.put(ch, myMap.getOrDefault(ch, 0) + 1);
-                }
-                left++;
-
-            }
-            // System.out.println(myMap);
-
-            for (char key : dnaMap.keySet()) {
-                if (dnaMap.get(key) > 0) {
-                    if (myMap.containsKey(key)) checkSecretNumber++;
-                }
-            }
-
-            if (checkSecretNumber == P) answer++;
+        for (int i = P; i < S; i++) {
+            add(dna[i]);
+            remove(dna[i - P]);
+            if (checkSecret == 4) answer++;
         }
 
-        // System.out.println(dnaMap);
         System.out.println(answer);
+    }
+
+    private static void remove(char ch) {
+        switch (ch) {
+            case 'A':
+                if (myArr[0] == checkArr[0]) checkSecret--;
+                myArr[0]--;
+                break;
+
+            case 'C':
+                if (myArr[1] == checkArr[1]) checkSecret--;
+                myArr[1]--;
+                break;
+
+            case 'G':
+                if (myArr[2] == checkArr[2]) checkSecret--;
+                myArr[2]--;
+                break;
+
+            case 'T':
+                if (myArr[3] == checkArr[3]) checkSecret--;
+                myArr[3]--;
+                break;
+        }
+    }
+
+    private static void add(char ch) {
+        switch (ch) {
+            case 'A':
+                myArr[0]++;
+                if (myArr[0] == checkArr[0]) checkSecret++;
+                break;
+
+            case 'C':
+                myArr[1]++;
+                if (myArr[1] == checkArr[1]) checkSecret++;
+                break;
+
+            case 'G':
+                myArr[2]++;
+                if (myArr[2] == checkArr[2]) checkSecret++;
+                break;
+
+            case 'T':
+                myArr[3]++;
+                if (myArr[3] == checkArr[3]) checkSecret++;
+        }
     }
 
     private static void input() throws IOException {
@@ -57,11 +88,10 @@ public class Q12891 {
         dna = br.readLine().toCharArray();
 
         st = new StringTokenizer(br.readLine());
-
-        dnaMap.put('A', Integer.parseInt(st.nextToken()));
-        dnaMap.put('C', Integer.parseInt(st.nextToken()));
-        dnaMap.put('G', Integer.parseInt(st.nextToken()));
-        dnaMap.put('T', Integer.parseInt(st.nextToken()));
+        for (int i = 0; i < 4; i++) {
+            checkArr[i] = Integer.parseInt(st.nextToken());
+            if (checkArr[i] == 0) checkSecret++;
+        }
 
         br.close();
     }
