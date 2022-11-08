@@ -9,19 +9,19 @@ import java.util.*
 private var firstNumber = 0
 private var secondNumber = 0
 
-fun solution(firstNumber: Int, secondNumber: Int): Int {
+private fun solution(firstNumber: Int, secondNumber: Int): Int {
     val reversedFirstNumber = reverseNumber(firstNumber)
     val reversedSecondNumber = reverseNumber(secondNumber)
 
     return Math.max(reversedFirstNumber, reversedSecondNumber)
 }
 
-fun reverseNumber(number: Int): Int {
+private fun reverseNumber(number: Int): Int {
     val sign = Math.signum(number.toDouble()).toInt()
     return abs(number).toString().reversed().toInt() * sign
 }
 
-fun input() = with(System.`in`.bufferedReader()) {
+private fun input() = with(System.`in`.bufferedReader()) {
     val st = StringTokenizer(readLine())
     firstNumber = st.nextToken().toInt()
     secondNumber = st.nextToken().toInt()
