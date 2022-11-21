@@ -1,10 +1,12 @@
-import java.lang.Math.abs
-import java.util.*
+package kotlin
 
 /**
  * 상수
  * https://www.acmicpc.net/problem/2908
  */
+
+import java.lang.Math.abs
+import java.util.*
 
 private var firstNumber = 0
 private var secondNumber = 0

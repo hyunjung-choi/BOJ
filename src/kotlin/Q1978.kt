@@ -1,10 +1,12 @@
-import java.util.*
-import kotlin.collections.ArrayList
+package kotlin
 
 /**
  * 소수 찾기
  * https://www.acmicpc.net/problem/1978
  */
+
+import java.util.*
+import kotlin.collections.ArrayList
 
 private var N = 0
 private var answer = 0
