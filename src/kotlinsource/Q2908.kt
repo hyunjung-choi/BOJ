@@ -1,4 +1,4 @@
-package kotlin
+package kotlinsource
 
 /**
  * 상수

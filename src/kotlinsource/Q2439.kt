@@ -1,4 +1,4 @@
-package kotlin
+package kotlinsource
 
 /**
  * 별 찍기 - 2

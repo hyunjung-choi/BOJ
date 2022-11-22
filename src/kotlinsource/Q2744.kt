@@ -1,4 +1,4 @@
-package kotlin
+package kotlinsource
 
 /**
  * 대소문자 바꾸기
