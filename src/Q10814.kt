@@ -14,10 +14,10 @@ private fun solution() {
 }
 
 private fun input() = with(System.`in`.bufferedReader()) {
-    N = readln().toInt()
+    N = readLine().toInt()
 
     repeat(N) {
-        val (age, name) = readln().split(" ")
+        val (age, name) = readLine().split(" ")
         members.add(age.toInt() to name)
     }
 

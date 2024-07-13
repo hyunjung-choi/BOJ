@@ -18,10 +18,10 @@ private fun solution() {
 }
 
 private fun input() = with(System.`in`.bufferedReader()) {
-    N = readln().toInt()
+    N = readLine().toInt()
 
     repeat(N) {
-        list.add(readln().toInt())
+        list.add(readLine().toInt())
     }
 
     close()
