@@ -107,3 +107,9 @@ modules.xml
 *.zip
 *.tar.gz
 *.rar
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
