@@ -18,11 +18,12 @@ private fun solution() {
     println(rankList.joinToString("\n"))
 }
 
-private fun input() = with(System.`in`.bufferedReader()) {
-    val n = readln().toInt()
-    List(n) {
-        val (x, y) = readln().split(" ").map { it.toInt() }
-        x to y
+private fun input(): List<Pair<Int, Int>> {
+    val reader = System.`in`.bufferedReader()
+    val n = reader.readLine().toInt()
+    return List(n) {
+        val (weight, height) = reader.readLine().split(" ").map { it.toInt() }
+        weight to height
     }
 }
 
